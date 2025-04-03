@@ -1,0 +1,45 @@
+﻿using Grpc.Core;
+using GrpcSandbox.Protos;
+using System;
+using System.Threading.Channels;
+using System.Threading.Tasks;
+
+namespace GrpcSandbox.Services.Clients;
+
+public class ItemClient
+{
+    private readonly ItemService.ItemServiceClient _client;
+
+    public ItemClient(Channel channel)
+    {
+        _client = new ItemService.ItemServiceClient(channel);
+    }
+
+    public async Task CreateItemAsync(Item item)
+    {
+        var request = new CreateItemRequest { Item = item };
+        var response = await _client.CreateItemAsync(request);
+        Console.WriteLine($"Created item with ID: {response.ItemId}");
+    }
+
+    public async Task GetItemAsync(string itemId)
+    {
+        var request = new GetItemRequest { ItemId = itemId };
+        var response = await _client.GetItemAsync(request);
+        Console.WriteLine($"Item details: {response.Item.Name}, {response.Item.Quantity}");
+    }
+
+    public async Task UpdateItemAsync(Item item)
+    {
+        var request = new UpdateItemRequest { Item = item };
+        var response = await _client.UpdateItemAsync(request);
+        Console.WriteLine($"Updated item: {response.Item.Name}");
+    }
+
+    public async Task DeleteItemAsync(string itemId)
+    {
+        var request = new DeleteItemRequest { ItemId = itemId };
+        var response = await _client.DeleteItemAsync(request);
+        Console.WriteLine($"Item deleted: {response.Success}");
+    }
+}

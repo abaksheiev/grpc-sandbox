@@ -1,0 +1,42 @@
+﻿using Grpc.Core;
+using GrpcSandbox.Protos;
+using System;
+using System.Threading.Tasks;
+
+public class CustomerClient
+{
+    private readonly CustomerService.CustomerServiceClient _client;
+
+    public CustomerClient(Channel channel)
+    {
+        _client = new CustomerService.CustomerServiceClient(channel);
+    }
+
+    public async Task CreateCustomerAsync(Customer customer)
+    {
+        var request = new CreateCustomerRequest { Customer = customer };
+        var response = await _client.CreateCustomerAsync(request);
+        Console.WriteLine($"Created customer with ID: {response.CustomerId}");
+    }
+
+    public async Task GetCustomerAsync(string customerId)
+    {
+        var request = new GetCustomerRequest { CustomerId = customerId };
+        var response = await _client.GetCustomerAsync(request);
+        Console.WriteLine($"Customer details: {response.Customer.Name}, {response.Customer.Email}");
+    }
+
+    public async Task UpdateCustomerAsync(Customer customer)
+    {
+        var request = new UpdateCustomerRequest { Customer = customer };
+        var response = await _client.UpdateCustomerAsync(request);
+        Console.WriteLine($"Updated customer: {response.Customer.Name}");
+    }
+
+    public async Task DeleteCustomerAsync(string customerId)
+    {
+        var request = new DeleteCustomerRequest { CustomerId = customerId };
+        var response = await _client.DeleteCustomerAsync(request);
+        Console.WriteLine($"Customer deleted: {response.Success}");
+    }
+}

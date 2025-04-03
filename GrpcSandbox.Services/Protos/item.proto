@@ -1,0 +1,68 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcSandbox.Protos";
+
+package item;
+
+// Item message definition
+message Item {
+  string item_id = 1;
+  string name = 2;
+  int32 quantity = 3;
+  double price = 4;
+  string description = 5;
+}
+
+// Request message for creating an item
+message CreateItemRequest {
+  Item item = 1;  // The item to be created
+}
+
+// Response message for creating an item
+message CreateItemResponse {
+  string item_id = 1;  // The ID of the created item
+}
+
+// Request message for getting an item
+message GetItemRequest {
+  string item_id = 1;  // The ID of the item to retrieve
+}
+
+// Response message for getting an item
+message GetItemResponse {
+  Item item = 1;  // The requested item
+}
+
+// Request message for updating an item
+message UpdateItemRequest {
+  Item item = 1;  // The item to update (must contain the updated values)
+}
+
+// Response message for updating an item
+message UpdateItemResponse {
+  Item item = 1;  // The updated item
+}
+
+// Request message for deleting an item
+message DeleteItemRequest {
+  string item_id = 1;  // The ID of the item to delete
+}
+
+// Response message for deleting an item
+message DeleteItemResponse {
+  bool success = 1;  // Whether the deletion was successful
+}
+
+// Item service with CRUD operations
+service ItemService {
+  // Create a new item
+  rpc CreateItem(CreateItemRequest) returns (CreateItemResponse);
+
+  // Get an item by its ID
+  rpc GetItem(GetItemRequest) returns (GetItemResponse);
+
+  // Update an existing item
+  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse);
+
+  // Delete an item by its ID
+  rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse);
+}

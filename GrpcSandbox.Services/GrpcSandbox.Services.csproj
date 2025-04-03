@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.30.2" />
+		<PackageReference Include="Google.Protobuf.Tools" Version="3.30.2" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.70.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.70.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.71.0" PrivateAssets="All">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="Protos\customer.proto" GrpcServices="Both">
+	    <CustomToolNamespace>GrpcSandbox.Protos</CustomToolNamespace>
+		<ProtobufOut>$(ProjectDir)\Generated</ProtobufOut>
+	  </Protobuf>
+	  <Protobuf Include="Protos\item.proto" GrpcServices="Both">
+	    <CustomToolNamespace>GrpcSandbox.Protos</CustomToolNamespace>
+		<ProtobufOut>$(ProjectDir)\Generated</ProtobufOut>
+	  </Protobuf>
+	  <Protobuf Include="Protos\order.proto" GrpcServices="Both">
+	    <CustomToolNamespace>GrpcSandbox.Protos</CustomToolNamespace>
+		<ProtobufOut>$(ProjectDir)\Generated</ProtobufOut>
+	  </Protobuf>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>d8f1086c-5c11-43c5-abd7-40c8f82c1e9c</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+	
+ 
+
+
+</Project>

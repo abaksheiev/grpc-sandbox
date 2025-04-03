@@ -1,0 +1,68 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcSandbox.Protos";
+
+package customer;
+
+// Customer message definition
+message Customer {
+  string customer_id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+}
+
+// Request message for creating a customer
+message CreateCustomerRequest {
+  Customer customer = 1;  // The customer to be created
+}
+
+// Response message for creating a customer
+message CreateCustomerResponse {
+  string customer_id = 1;  // The ID of the created customer
+}
+
+// Request message for getting a customer by ID
+message GetCustomerRequest {
+  string customer_id = 1;  // The ID of the customer to retrieve
+}
+
+// Response message for getting a customer
+message GetCustomerResponse {
+  Customer customer = 1;  // The requested customer
+}
+
+// Request message for updating a customer
+message UpdateCustomerRequest {
+  Customer customer = 1;  // The customer to update (must contain updated fields)
+}
+
+// Response message for updating a customer
+message UpdateCustomerResponse {
+  Customer customer = 1;  // The updated customer
+}
+
+// Request message for deleting a customer
+message DeleteCustomerRequest {
+  string customer_id = 1;  // The ID of the customer to delete
+}
+
+// Response message for deleting a customer
+message DeleteCustomerResponse {
+  bool success = 1;  // Whether the deletion was successful
+}
+
+// Customer service with CRUD operations
+service CustomerService {
+  // Create a new customer
+  rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+
+  // Get a customer by ID
+  rpc GetCustomer(GetCustomerRequest) returns (GetCustomerResponse);
+
+  // Update an existing customer
+  rpc UpdateCustomer(UpdateCustomerRequest) returns (UpdateCustomerResponse);
+
+  // Delete a customer by ID
+  rpc DeleteCustomer(DeleteCustomerRequest) returns (DeleteCustomerResponse);
+}
